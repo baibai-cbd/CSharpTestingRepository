@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LocalThreadSafeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="UnsafeTable">
+          <Key>
+            <PropertyRef Name="MRIID" />
+          </Key>
+          <Property Name="MRIID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImagePageCount" Type="int" Nullable="false" />
+          <Property Name="ImageFileSize" Type="int" Nullable="false" />
+          <Property Name="CreatedDatetime" Type="datetime" Nullable="false" />
+          <Property Name="CreatedUserID" Type="int" Nullable="false" />
+          <Property Name="DelayedDatetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Function Name="WaitAndInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IPC" Type="int" Mode="In" />
+          <Parameter Name="IFS" Type="int" Mode="In" />
+          <Parameter Name="CreatedUserID" Type="int" Mode="In" />
+          <Parameter Name="CreatedDateTime" Type="datetime" Mode="In" />
+        </Function>
+        <EntityContainer Name="LocalThreadSafeModelStoreContainer">
+          <EntitySet Name="UnsafeTable" EntityType="Self.UnsafeTable" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LocalThreadSafeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="UnsafeTable">
+          <Key>
+            <PropertyRef Name="MRIID" />
+          </Key>
+          <Property Name="MRIID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImagePageCount" Type="Int32" Nullable="false" />
+          <Property Name="ImageFileSize" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedUserID" Type="Int32" Nullable="false" />
+          <Property Name="DelayedDatetime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="LocalThreadSafeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UnsafeTables" EntityType="Self.UnsafeTable" />
+          <FunctionImport Name="WaitAndInsert" ReturnType="Collection(LocalThreadSafeModel.WaitAndInsert_Result)">
+            <Parameter Name="IPC" Mode="In" Type="Int32" />
+            <Parameter Name="IFS" Mode="In" Type="Int32" />
+            <Parameter Name="CreatedUserID" Mode="In" Type="Int32" />
+            <Parameter Name="CreatedDateTime" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="WaitAndInsert_Result">
+          <Property Type="Int32" Name="MRIID" Nullable="false" />
+          <Property Type="Int32" Name="ImagePageCount" Nullable="false" />
+          <Property Type="Int32" Name="ImageFileSize" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDatetime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="CreatedUserID" Nullable="false" />
+          <Property Type="DateTime" Name="DelayedDatetime" Nullable="false" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LocalThreadSafeModelStoreContainer" CdmEntityContainer="LocalThreadSafeEntities">
+          <EntitySetMapping Name="UnsafeTables">
+            <EntityTypeMapping TypeName="LocalThreadSafeModel.UnsafeTable">
+              <MappingFragment StoreEntitySet="UnsafeTable">
+                <ScalarProperty Name="MRIID" ColumnName="MRIID" />
+                <ScalarProperty Name="ImagePageCount" ColumnName="ImagePageCount" />
+                <ScalarProperty Name="ImageFileSize" ColumnName="ImageFileSize" />
+                <ScalarProperty Name="CreatedDatetime" ColumnName="CreatedDatetime" />
+                <ScalarProperty Name="CreatedUserID" ColumnName="CreatedUserID" />
+                <ScalarProperty Name="DelayedDatetime" ColumnName="DelayedDatetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="WaitAndInsert" FunctionName="LocalThreadSafeModel.Store.WaitAndInsert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LocalThreadSafeModel.WaitAndInsert_Result">
+                <ScalarProperty Name="MRIID" ColumnName="MRIID" />
+                <ScalarProperty Name="ImagePageCount" ColumnName="ImagePageCount" />
+                <ScalarProperty Name="ImageFileSize" ColumnName="ImageFileSize" />
+                <ScalarProperty Name="CreatedDatetime" ColumnName="CreatedDatetime" />
+                <ScalarProperty Name="CreatedUserID" ColumnName="CreatedUserID" />
+                <ScalarProperty Name="DelayedDatetime" ColumnName="DelayedDatetime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
