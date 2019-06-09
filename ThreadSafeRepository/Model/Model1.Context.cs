@@ -14,11 +14,18 @@ namespace ThreadSafeRepository.Model
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
-    
+    using System.Data.Common;
+
     public partial class LocalThreadSafeEntities : DbContext
     {
         public LocalThreadSafeEntities()
             : base("name=LocalThreadSafeEntities")
+        {
+        }
+
+        // extra added ctor
+        public LocalThreadSafeEntities(DbConnection sqlConnection, bool contextOwnsConn)
+            : base(sqlConnection, contextOwnsConn)
         {
         }
     
