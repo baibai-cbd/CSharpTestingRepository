@@ -4,6 +4,7 @@ using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ThreadSafeRepository.Model;
 
@@ -11,6 +12,7 @@ namespace ThreadSafeRepository
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             while (true)
@@ -37,7 +39,13 @@ namespace ThreadSafeRepository
                         break;
 
                     case '3':
+                        Console.WriteLine("try multi-thread with 2 repos, 2 contexts, 2 connection setting");
+                        ThreadedRunningMethods.ThreadedTwoRepoTwoContextTwoConn();
+                        break;
+
+                    case '5':
                         Console.WriteLine("try multi-thread with 2 repos, 2 contexts, 1 connection setting");
+                        ThreadedRunningMethods.ThreadedTwoRepoTwoContextOneConn();
                         break;
 
                     default:
@@ -49,6 +57,7 @@ namespace ThreadSafeRepository
 
         static void TryTwoReposWithSameConn()
         {
+            // no error
             EntityConnection conn = new EntityConnection("metadata=res://*/Model.Model1.csdl|res://*/Model.Model1.ssdl|res://*/Model.Model1.msl;provider=System.Data.SqlClient;provider connection string=';data source=DESKTOP-RYZEN\\SQLEXPRESS;initial catalog=LocalThreadSafe;integrated security=True;max pool size=1;MultipleActiveResultSets=True;App=EntityFramework';");
 
             var context1 = new LocalThreadSafeEntities(conn, false);
@@ -64,6 +73,7 @@ namespace ThreadSafeRepository
 
         static void TryTwoRepoWithSameContext()
         {
+            // no error
             var context = new LocalThreadSafeEntities();
             var repo1 = new UnsafeRepository(context);
             var repo2 = new UnsafeRepository(context);
