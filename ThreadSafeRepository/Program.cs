@@ -17,37 +17,46 @@ namespace ThreadSafeRepository
         {
             while (true)
             {
-                var i = Console.Read();
-                char c = (char)i;
+                var i = Console.ReadLine();
 
-                switch (c)
+                switch (i)
                 {
-                    case '1':
+                    case "1":
                         Console.WriteLine("try insert with 2 repos, 2 contexts, 1 connection setting");
                         TryTwoReposWithSameConn();
                         break;
 
-                    case '2':
+                    case "2":
                         Console.WriteLine("try insert with 2 repos, 1 contexts, 1 connection setting");
                         TryTwoRepoWithSameContext();
                         break;
 
-                    case '4':
+                    case "4":
                         Console.WriteLine("try insert with 2 repos, 2 contexts, 2 connection setting");
                         Console.WriteLine("point is to check time created time and delayed time in DB");
                         
                         break;
 
-                    case '3':
+                    case "3":
                         Console.WriteLine("try multi-thread with 2 repos, 2 contexts, 2 connection setting");
                         ThreadedRunningMethods.ThreadedTwoRepoTwoContextTwoConn();
                         break;
 
-                    case '5':
+                    case "5":
                         Console.WriteLine("try multi-thread with 2 repos, 2 contexts, 1 connection setting");
                         ThreadedRunningMethods.ThreadedTwoRepoTwoContextOneConn();
                         break;
-
+                    //
+                    // doing different stuff here, trying disposing objects
+                    case "d":
+                        Console.WriteLine("try dispose a message entered here, please enter message");
+                        string input = Console.ReadLine();
+                        using (var m = new IncomingMessage(input))
+                        {
+                        MessageProcessingMethods.DisplayAndDisposeMessage(m);
+                        }
+                        break;
+                    //
                     default:
                         Console.WriteLine("DO NOTHING......");
                         break;
