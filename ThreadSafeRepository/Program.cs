@@ -21,6 +21,7 @@ namespace ThreadSafeRepository
 
                 switch (i)
                 {
+                    #region MultithreadTests
                     case "1":
                         Console.WriteLine("try insert with 2 repos, 2 contexts, 1 connection setting");
                         TryTwoReposWithSameConn();
@@ -46,8 +47,10 @@ namespace ThreadSafeRepository
                         Console.WriteLine("try multi-thread with 2 repos, 2 contexts, 1 connection setting");
                         ThreadedRunningMethods.ThreadedTwoRepoTwoContextOneConn();
                         break;
+                    #endregion
                     //
                     // doing different stuff here, trying disposing objects
+                    //
                     case "d":
                         Console.WriteLine("try dispose a message entered here, please enter message");
                         string input = Console.ReadLine();
@@ -56,6 +59,11 @@ namespace ThreadSafeRepository
                         MessageProcessingMethods.DisplayAndDisposeMessage(m);
                         }
                         break;
+
+                    case "yieldtest":
+                        MiscTestingMethods.ComparePerformanceYield();
+                        break;
+                    //
                     //
                     default:
                         Console.WriteLine("DO NOTHING......");
