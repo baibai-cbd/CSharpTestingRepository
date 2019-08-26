@@ -63,6 +63,18 @@ namespace ThreadSafeRepository
                     case "yieldtest":
                         MiscTestingMethods.ComparePerformanceYield();
                         break;
+
+                    case "nullconditioning":
+                        IncomingMessage mm = null;
+                        string a = "sdsd";
+                        if (a == mm?.message)
+                        {
+                            Console.WriteLine("can use as this");
+                        } else
+                        {
+                            Console.WriteLine("not equal");
+                        }
+                        break;
                     //
                     //
                     default:
