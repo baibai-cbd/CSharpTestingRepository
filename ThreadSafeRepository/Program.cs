@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ThreadSafeRepository.Model;
+using ThreadSafeRepository.Repository;
 
 namespace ThreadSafeRepository
 {
@@ -15,6 +17,9 @@ namespace ThreadSafeRepository
 
         static void Main(string[] args)
         {
+            // Random Generator
+            var random = new Random();
+
             while (true)
             {
                 var i = Console.ReadLine();
@@ -74,6 +79,63 @@ namespace ThreadSafeRepository
                         {
                             Console.WriteLine("not equal");
                         }
+                        break;
+
+
+                    #region FluentAPI
+                    // Fluent api testing was not successful
+                    case "fluentapi1":
+                        var model2Context1 = new Model2();
+                        var model2Repo1 = new Model2Repo(model2Context1);
+                        var xrefB = model2Repo1.CreateABCPair("white", "coool", "10732", 23059);
+                        break;
+
+                    // Simply persist a entity here
+                    case "fluentapi2":
+                        var model2Context2 = new Model2();
+                        var model2Repo2 = new Model2Repo(model2Context2);
+                        bool tempBool = random.Next(2) == 0 ? true : false;
+                        double tempNum = random.NextDouble();
+                        var smallEntityD = model2Repo2.CreateSmallEntityD(tempBool, $"SomeNumber:{tempNum}");
+                        Console.WriteLine(smallEntityD);
+                        break;
+                    #endregion
+
+                    // Try delete directly with entities vs entities -> Ids -> entities
+                    // Result: not big difference between the 2 ways
+                    case "deletesInRepo":
+                        int entityCount = 500;
+                        var model2Context3 = new Model2();
+                        var model2Repo3 = new Model2Repo(model2Context3);
+                        // clear entities
+                        model2Repo3.RemoveAllSmallEntityDs();
+                        // random generate 100 entities
+                        for (int j = 0; j < entityCount; j++)
+                        {
+                            model2Repo3.CreateSmallEntityD(random.Next(2) == 0 ? true : false, $"SomeNumber:{random.NextDouble()}");
+                        }
+                        var stopwatch = new Stopwatch();
+                        stopwatch.Start();
+                        var entities = model2Repo3.GetSmallEntityDsByBool(true);
+                        var count = model2Repo3.RemoveSmallEntityDsByEntities(entities);
+                        stopwatch.Stop();
+                        Console.WriteLine($"time elapsed for 'removeByEntities' is {stopwatch.Elapsed}");
+                        //
+                        stopwatch.Reset();
+                        //
+                        // clear entities
+                        model2Repo3.RemoveAllSmallEntityDs();
+                        // random generate 100 entities
+                        for (int j = 0; j < entityCount; j++)
+                        {
+                            model2Repo3.CreateSmallEntityD(random.Next(2) == 0 ? true : false, $"SomeNumber:{random.NextDouble()}");
+                        }
+                        stopwatch.Start();
+                        var ids = model2Repo3.GetSmallEntityDIdsByBool(true);
+                        var count1 = model2Repo3.RemoveSmallEntityDsByIds(ids);
+                        stopwatch.Stop();
+                        Console.WriteLine($"time elapsed for 'removeByIds' is {stopwatch.Elapsed}");
+
                         break;
                     //
                     //

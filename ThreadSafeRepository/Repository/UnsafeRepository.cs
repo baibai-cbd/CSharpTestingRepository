@@ -23,7 +23,7 @@ namespace ThreadSafeRepository
                                                 new SqlParameter("@ipc", ipc), 
                                                 new SqlParameter("@ifs", ifs),
                                                 new SqlParameter("@userId", userId), 
-                                                new SqlParameter("@time" , System.DateTime.Now));
+                                                new SqlParameter("@time" , System.DateTime.UtcNow));
         }
 
         public UnsafeTable GetById(int id)
