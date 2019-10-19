@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ThreadSafeRepository.Model;
 
-namespace ThreadSafeRepository
+namespace ThreadSafeRepository.Repository
 {
     public interface IRepository
     {

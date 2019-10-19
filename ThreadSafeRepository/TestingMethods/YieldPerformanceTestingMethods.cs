@@ -5,10 +5,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ThreadSafeRepository.TestingDataModels;
 
-namespace ThreadSafeRepository
+namespace ThreadSafeRepository.TestingMethods
 {
-    class MiscTestingMethods
+    class YieldPerformanceTestingMethods
     {
         public static void ComparePerformanceYield()
         {

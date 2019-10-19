@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading;
+using ThreadSafeRepository.TestingDataModels;
 
-namespace ThreadSafeRepository
+namespace ThreadSafeRepository.TestingMethods
 {
     class MessageProcessingMethods
     {

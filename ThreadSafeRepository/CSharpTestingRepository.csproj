@@ -52,9 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IncomingMessage.cs" />
-    <Compile Include="MessageProcessingMethods.cs" />
-    <Compile Include="MiscTestingMethods.cs" />
+    <Compile Include="TestingDataModels\IncomingMessage.cs" />
+    <Compile Include="TestingMethods\MessageProcessingMethods.cs" />
+    <Compile Include="TestingMethods\YieldPerformanceTestingMethods.cs" />
     <Compile Include="Model\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -83,7 +83,8 @@
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\Model2Repo.cs" />
     <Compile Include="Repository\UnsafeRepository.cs" />
-    <Compile Include="ThreadedRunningMethods.cs" />
+    <Compile Include="TestingMethods\RepoDeletePerformanceTestingMethods.cs" />
+    <Compile Include="TestingMethods\ThreadedRunningMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

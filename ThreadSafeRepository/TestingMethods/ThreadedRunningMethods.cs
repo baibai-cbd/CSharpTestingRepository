@@ -6,11 +6,39 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ThreadSafeRepository.Model;
+using ThreadSafeRepository.Repository;
 
-namespace ThreadSafeRepository
+namespace ThreadSafeRepository.TestingMethods
 {
     class ThreadedRunningMethods
     {
+        public static void TryTwoReposWithSameConn()
+        {
+            // no error
+            EntityConnection conn = new EntityConnection("metadata=res://*/Model.Model1.csdl|res://*/Model.Model1.ssdl|res://*/Model.Model1.msl;provider=System.Data.SqlClient;provider connection string=';data source=DESKTOP-RYZEN\\SQLEXPRESS;initial catalog=LocalThreadSafe;integrated security=True;max pool size=1;MultipleActiveResultSets=True;App=EntityFramework';");
+
+            var context1 = new LocalThreadSafeEntities(conn, false);
+            var context2 = new LocalThreadSafeEntities(conn, false);
+            var repo1 = new UnsafeRepository(context1);
+            var repo2 = new UnsafeRepository(context2);
+            Console.WriteLine("context1 connection: " + context1.Database.Connection.GetHashCode());
+            Console.WriteLine("context1 connection: " + context2.Database.Connection.GetHashCode());
+            //
+            repo1.CreateUsingSP(23, 3453, 11);
+            repo2.CreateUsingSP(9, 776, 22);
+        }
+
+        public static void TryTwoRepoWithSameContext()
+        {
+            // no error
+            var context = new LocalThreadSafeEntities();
+            var repo1 = new UnsafeRepository(context);
+            var repo2 = new UnsafeRepository(context);
+            //
+            repo1.CreateUsingSP(89, 8674, 33);
+            repo2.CreateUsingSP(3, 299, 44);
+        }
+
         public static void ThreadedTwoRepoTwoContextTwoConn()
         {
             // no error
