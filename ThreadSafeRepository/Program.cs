@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using ThreadSafeRepository.DapperRepository;
 using ThreadSafeRepository.Model;
 using ThreadSafeRepository.Repository;
 using ThreadSafeRepository.TestingDataModels;
@@ -108,12 +109,22 @@ namespace ThreadSafeRepository
                         break;
                     #endregion
 
-                    #region DeletePerformanceInRepo
+                    #region DeletesPerformanceInRepo
                     // Try delete directly with entities vs entities -> Ids -> entities
                     // Result: not big difference between the 2 ways
                     case "deletesInRepo":
                         RepoDeletePerformanceTestingMethods.RemoveByEntities(1000);
                         RepoDeletePerformanceTestingMethods.RemoveByIds(1000);
+                        break;
+                    #endregion
+
+                    #region DapperMultiMapping
+                    // Two layers of Multi mapping need 2 dictionaries to store data
+                    // And add reference to dictionary and upper layer only when it's not found in the dictionary
+                    case "dapperMulti":
+                        var dapperRepo = new EmployeeRepository("Model2");
+                        var employee = dapperRepo.GetEmployeeWithAllData(1);
+                        Console.WriteLine($"This employee {employee.Name} has {employee.Projects.Count} of projects records...");
                         break;
                     #endregion
 
@@ -124,9 +135,5 @@ namespace ThreadSafeRepository
                 }
             }
         }
-
-        
-
-        
     }
 }

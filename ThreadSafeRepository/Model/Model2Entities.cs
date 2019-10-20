@@ -10,7 +10,6 @@ namespace ThreadSafeRepository.Model
 {
     class Model2Entities
     {
-
     }
 
     public class EntityA
