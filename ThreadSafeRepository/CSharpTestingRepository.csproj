@@ -74,6 +74,7 @@
     <Compile Include="DapperModel\EmployeeModels.cs" />
     <Compile Include="DapperRepository\EmployeeRepository.cs" />
     <Compile Include="TestingDataModels\IncomingMessage.cs" />
+    <Compile Include="TestingMethods\LinqExecutionTestingMethods.cs" />
     <Compile Include="TestingMethods\MessageProcessingMethods.cs" />
     <Compile Include="TestingMethods\YieldPerformanceTestingMethods.cs" />
     <Compile Include="Model\Model1.Context.cs">

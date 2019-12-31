@@ -128,6 +128,16 @@ namespace ThreadSafeRepository
                         break;
                     #endregion
 
+                    #region LinqExecutionOrder
+                    case "LinqExe1":
+                        LinqExecutionTestingMethods.WhereSelectExecution();
+                        break;
+
+                    case "LinqExe2":
+                        LinqExecutionTestingMethods.WhereSelectTakeExecution();
+                        break;
+                    #endregion
+                    
                     //
                     default:
                         Console.WriteLine("DO NOTHING......");
