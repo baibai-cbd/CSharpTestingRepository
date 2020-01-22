@@ -2,6 +2,7 @@ namespace ThreadSafeRepository.Model
 {
     using System;
     using System.Data.Entity;
+    using System.Data.Entity.Infrastructure.Interception;
     using System.Linq;
 
     public class Model2 : DbContext
@@ -17,6 +18,14 @@ namespace ThreadSafeRepository.Model
         {
         }
 
+        public Model2(bool isInterceptorOn)
+            : base("name=Model2")
+        {
+            _isInterceptorOn = isInterceptorOn;
+        }
+
+        protected readonly bool _isInterceptorOn;
+
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
@@ -25,6 +34,9 @@ namespace ThreadSafeRepository.Model
         public virtual DbSet<XrefB> XrefBs { get; set; }
         public virtual DbSet<EntityC> EntityCs { get; set; }
         public virtual DbSet<SmallEntityD> SmallEntityDs { get; set; }
+        //
+        public virtual DbSet<BlogSite> BlogSites { get; set; }
+        public virtual DbSet<Blog> Blogs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -41,7 +53,15 @@ namespace ThreadSafeRepository.Model
 
             modelBuilder.Entity<SmallEntityD>();
 
+            modelBuilder.Entity<BlogSite>()
+                .HasMany(x => x.Blogs)
+                .WithRequired(x => x.blogSite);
+
             //base.OnModelCreating(modelBuilder);
+            if (_isInterceptorOn)
+            {
+                DbInterception.Add(new LazyLoadingInterceptor());
+            }
         }
     }
 }
