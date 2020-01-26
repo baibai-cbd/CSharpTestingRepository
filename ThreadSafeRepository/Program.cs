@@ -136,6 +136,10 @@ namespace ThreadSafeRepository
                     case "LinqExe2":
                         LinqExecutionTestingMethods.WhereSelectTakeExecution();
                         break;
+
+                    case "Tutorial":
+                        LinqExecutionTestingMethods.TutorialMethod();
+                        break;
                     #endregion
                     
                     //

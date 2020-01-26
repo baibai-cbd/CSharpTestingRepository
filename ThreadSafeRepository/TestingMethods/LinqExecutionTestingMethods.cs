@@ -50,5 +50,22 @@ namespace ThreadSafeRepository.TestingMethods
                 Console.WriteLine($"one result is... {item}");
             }
         }
+
+
+        public static void TutorialMethod()
+        {
+            var list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+            var results = list.SelectMany(i => 
+            {
+                Console.WriteLine($"{i} in where");
+                return new List<int>() { i, i * 2, i * 3 };
+            });
+
+            foreach (var item in results)
+            {
+                Console.WriteLine($"one result is... {item}");
+            }
+        }
     }
 }
