@@ -141,7 +141,15 @@ namespace ThreadSafeRepository
                         LinqExecutionTestingMethods.TutorialMethod();
                         break;
                     #endregion
-                    
+
+                    #region LazyLoadingDemo
+                    case "LazyLoadingOn":
+                        break;
+
+                    case "LazyLoadingOff":
+                        break;
+                    #endregion
+
                     //
                     default:
                         Console.WriteLine("DO NOTHING......");

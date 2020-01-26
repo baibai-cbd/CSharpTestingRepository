@@ -58,4 +58,30 @@ namespace ThreadSafeRepository.Model
             return $"this entity is {IsGood} and {SomeInfo}, with UUID {Guid}";
         }
     }
+
+    public class BlogSite
+    {
+        public BlogSite()
+        {
+            Blogs = new HashSet<Blog>();
+        }
+
+        [Key]
+        public Guid BlogSiteGuid { get; set; }
+        public string BlogSiteName { get; set; }
+        public string OwnerName { get; set; }
+
+        public virtual ICollection<Blog> Blogs { get; set; }
+    }
+
+    public class Blog
+    {
+        [Key]
+        public int BlogID { get; set; }
+        public string Title { get; set; }
+        public string AuthorName { get; set; }
+        public DateTime createdDatetime { get; set; }
+
+        public virtual BlogSite blogSite { get; set; }
+    }
 }
