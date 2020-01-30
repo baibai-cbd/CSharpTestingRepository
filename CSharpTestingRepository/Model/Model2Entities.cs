@@ -78,6 +78,7 @@ namespace ThreadSafeRepository.Model
     {
         [Key]
         public int BlogID { get; set; }
+        public Guid BlogSiteGuid { get; set; }
         public string Title { get; set; }
         public string AuthorName { get; set; }
         public DateTime createdDatetime { get; set; }

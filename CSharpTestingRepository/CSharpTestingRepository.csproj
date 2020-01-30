@@ -76,7 +76,7 @@
     <Compile Include="Model\LazyLoadingInterceptor.cs" />
     <Compile Include="Repository\LazyLoadingRepo.cs" />
     <Compile Include="TestingDataModels\IncomingMessage.cs" />
-    <Compile Include="TestingMethods\LazyLoadingDemoMethods.cs" />
+    <Compile Include="TestingMethods\LazyLoadingTestingMethods.cs" />
     <Compile Include="TestingMethods\LinqExecutionTestingMethods.cs" />
     <Compile Include="TestingMethods\MessageProcessingMethods.cs" />
     <Compile Include="TestingMethods\YieldPerformanceTestingMethods.cs" />
