@@ -55,13 +55,10 @@ namespace ThreadSafeRepository.Model
 
             modelBuilder.Entity<BlogSite>()
                 .HasMany(x => x.Blogs)
-                .WithRequired(x => x.blogSite);
+                .WithRequired(x => x.blogSite)
+                .HasForeignKey(x => x.BlogSiteGuid);
 
-            //base.OnModelCreating(modelBuilder);
-            if (_isInterceptorOn)
-            {
-                DbInterception.Add(new LazyLoadingInterceptor());
-            }
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

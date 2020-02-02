@@ -7,7 +7,7 @@ using ThreadSafeRepository.Model;
 
 namespace ThreadSafeRepository.Repository
 {
-    public class LazyLoadingRepo
+    public class LazyLoadingRepo : IDisposable
     {
         private readonly Model2 context;
 
@@ -35,9 +35,14 @@ namespace ThreadSafeRepository.Repository
             return context.Blogs.AsEnumerable();
         }
 
-        public BlogSite GetBlogSite(int id)
+        public BlogSite GetBlogSite(Guid id)
         {
             return context.BlogSites.Find(id);
+        }
+
+        public void Dispose()
+        {
+            context.Dispose();
         }
     }
 }

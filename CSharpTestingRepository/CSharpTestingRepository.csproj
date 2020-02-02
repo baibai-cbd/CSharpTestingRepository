@@ -73,6 +73,15 @@
   <ItemGroup>
     <Compile Include="DapperModel\EmployeeModels.cs" />
     <Compile Include="DapperRepository\EmployeeRepository.cs" />
+    <Compile Include="Migrations\201910160204563_InitialCreate.cs" />
+    <Compile Include="Migrations\201910160204563_InitialCreate.Designer.cs">
+      <DependentUpon>201910160204563_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002020544435_LazyLoading.cs" />
+    <Compile Include="Migrations\202002020544435_LazyLoading.Designer.cs">
+      <DependentUpon>202002020544435_LazyLoading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\LazyLoadingInterceptor.cs" />
     <Compile Include="Repository\LazyLoadingRepo.cs" />
     <Compile Include="TestingDataModels\IncomingMessage.cs" />
@@ -150,6 +159,14 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201910160204563_InitialCreate.resx">
+      <DependentUpon>201910160204563_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002020544435_LazyLoading.resx">
+      <DependentUpon>202002020544435_LazyLoading.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
