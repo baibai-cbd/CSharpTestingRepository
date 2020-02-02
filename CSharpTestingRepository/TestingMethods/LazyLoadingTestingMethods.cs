@@ -37,7 +37,11 @@ namespace ThreadSafeRepository.TestingMethods
                 model2Context.Configuration.LazyLoadingEnabled = lazyLoading;
 
                 var blogSite = model2Repo.GetBlogSite(siteID);
+                Console.WriteLine("-");
+                Console.WriteLine("-");
                 Console.WriteLine($"this is {blogSite.BlogSiteName} by {blogSite.OwnerName}.");
+                Console.WriteLine("-");
+                Console.WriteLine("-");
                 Console.WriteLine($"there is {blogSite.Blogs.Count} blogs in here.");
             }
         }

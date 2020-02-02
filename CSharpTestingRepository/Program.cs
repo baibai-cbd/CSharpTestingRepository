@@ -145,11 +145,13 @@ namespace ThreadSafeRepository
                     #region LazyLoadingDemo
                     case "LazyLoadingOn":
                         var guid1 = LazyLoadingTestingMethods.CreateDataForLazyLoadingTesting();
+                        Console.WriteLine("-");
                         LazyLoadingTestingMethods.LoadDataWithDifferentLazyLoadingSetup(lazyLoading: true, siteID: guid1);
                         break;
 
                     case "LazyLoadingOff":
                         var guid2 = LazyLoadingTestingMethods.CreateDataForLazyLoadingTesting();
+                        Console.WriteLine("-");
                         LazyLoadingTestingMethods.LoadDataWithDifferentLazyLoadingSetup(lazyLoading: false, siteID: guid2);
                         break;
                     #endregion
