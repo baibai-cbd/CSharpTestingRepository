@@ -152,10 +152,16 @@ namespace ThreadSafeRepository
                     case "LazyLoadingOff":
                         var guid2 = LazyLoadingTestingMethods.CreateDataForLazyLoadingTesting();
                         Console.WriteLine("-");
-                        LazyLoadingTestingMethods.LoadDataWithDifferentLazyLoadingSetup(lazyLoading: false, siteID: guid2);
+                        LazyLoadingTestingMethods.LoadDataWithDifferentLazyLoadingSetup(false, guid2);
                         break;
                     #endregion
 
+                    #region MoqTest
+                    case "MockABC":
+                        var moqClass = new MoqTestingMethods();
+                        moqClass.Test1();
+                        break;
+                    #endregion
                     //
                     default:
                         Console.WriteLine("DO NOTHING......");
