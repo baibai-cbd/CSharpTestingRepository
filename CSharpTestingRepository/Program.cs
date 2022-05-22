@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core.EntityClient;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using BenchmarkDotNet.Running;
+using System;
 using ThreadSafeRepository.DapperRepository;
 using ThreadSafeRepository.Model;
 using ThreadSafeRepository.Repository;
@@ -162,7 +155,15 @@ namespace ThreadSafeRepository
                         moqClass.Test1();
                         break;
                     #endregion
-                    //
+
+                    #region DelegateComparerBenchmark
+                    // Result: identical performance between the two ways
+                    case "delegateComparer":
+                        BenchmarkRunner.Run<DelegateComparerBenchmark>();
+                        break;
+                        #endregion
+
+
                     default:
                         Console.WriteLine("DO NOTHING......");
                         break;
